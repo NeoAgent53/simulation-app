@@ -19,7 +19,8 @@ xp_values = {
     "Observe Without Reacting": {"xp": 25, "repeatable": False, "type": "Mind"},
     "Eat Nutritious Meal": {"xp": 15, "repeatable": False, "type": "Body"},
     "Skill Practice": {"xp": 20, "repeatable": True, "type": "Mind"},
-    "Digital Detox 1 Hour": {"xp": 15, "repeatable": False, "type": "Routine"},
+    "Social Media Detox - 1 Day": {"xp": 20, "repeatable": False, "type": "Routine"},
+    "Crypto Detox - 1 Day": {"xp": 20, "repeatable": False, "type": "Routine"},
     "Go for a Walk": {"xp": 10, "repeatable": True, "type": "Body"},
     "Journal Entry": {"xp": 15, "repeatable": True, "type": "Mind"}
 }
@@ -43,6 +44,9 @@ TRUTH_QUOTE = "The Divine is showing me this resistance to clear."
 XP_REWARD = 50
 
 # Utilities
+def calculate_level(xp):
+    return xp // 1000 + 1
+
 def group_missions_by_type(missions):
     grouped = defaultdict(list)
     for name, info in missions.items():
@@ -80,6 +84,7 @@ def save_daily(data):
 def index():
     today = datetime.now().strftime("%Y-%m-%d")
     data = load_data()
+    level = calculate_level(data["xp"])
     daily = load_daily()
 
     if request.method == "POST" and "mission" in request.form:
@@ -107,6 +112,7 @@ def index():
         missions=daily["missions"],
         truth=TRUTH_QUOTE,
         xp=data["xp"],
+        level=level,
         all_completed=all(m["completed"] for m in daily["missions"]),
         grouped_missions=grouped_missions
     )
