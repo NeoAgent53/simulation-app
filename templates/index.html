@@ -45,6 +45,21 @@
 <body>
   <h1>🧠 Daily Resistance Missions</h1>
   <p><strong>Level:</strong> {{ level }}</p>
+  <h2>📊 Progress to Next Level</h2>
+<div style="background-color: #333; border-radius: 12px; overflow: hidden; height: 30px; margin-bottom: 1em;">
+  <div style="
+    background-color: #00ff88;
+    height: 100%;
+    width: {{ xp % 1000 }};
+    width: calc({{ xp % 1000 }} / 10)%;
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+    line-height: 30px;">
+    {{ xp % 1000 }} / 1000 XP
+  </div>
+</div>
+
   <p><strong>XP:</strong> {{ xp }}</p>
 
   {% for m in missions %}

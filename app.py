@@ -112,7 +112,7 @@ def index():
         missions=daily["missions"],
         truth=TRUTH_QUOTE,
         xp=data["xp"],
-        level=level,
+        level=calculate_level(data["xp"]),
         all_completed=all(m["completed"] for m in daily["missions"]),
         grouped_missions=grouped_missions
     )
