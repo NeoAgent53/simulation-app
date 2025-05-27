@@ -2,60 +2,83 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Neo Agent 53 || Simulation XP Tracker</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent 53 Simulation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #eee;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+    .mission, .habit {
+      background-color: #222;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      border: 1px solid #444;
+    }
+    .mission.completed {
+      opacity: 0.6;
+      text-decoration: line-through;
+    }
+    button, select, input[type="submit"] {
+      background-color: #00ff88;
+      color: #000;
+      font-weight: bold;
+      padding: 0.8rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+    h1, h2 {
+      color: #00ff88;
+    }
+    form { margin-bottom: 2rem; }
+  </style>
 </head>
 <body>
-  <h1>Neo Agent 53 || Simulation XP Tracker</h1>
+  <h1>🧠 Daily Resistance Missions</h1>
+  <p><strong>XP:</strong> {{ xp }}</p>
 
-  <p><strong>Total XP:</strong> {{ xp }}</p>
-  <p><strong>Level:</strong> {{ level }}</p>
-  <div style="background:#333; width:80%; margin:auto; border-radius:8px; height: 30px;">
-  <div style="width: {{ xp % 100 }}%; background:#00ff88; height: 100%; border-radius:8px; display: flex; align-items: center; justify-content: center;">
-    <strong style="font-size: 14px; color: black">{{ xp % 100 }}/100 XP</strong>
-  </div>
-  </div>
+  {% for m in missions %}
+    <div class="mission {% if m.completed %}completed{% endif %}">
+      <p><strong>{{ m.text }}</strong></p>
+      <p><em>{{ truth }}</em></p>
+      {% if not m.completed %}
+        <form method="POST" action="/complete/{{ loop.index0 }}">
+          <button>✔️ Complete</button>
+        </form>
+      {% else %}
+        <p>✅ Completed</p>
+      {% endif %}
+    </div>
+  {% endfor %}
 
-  {% if level > 1 %}
-    <h3>🎖️ Badge Unlocked: Level {{ level }}</h3>
-    <img src="{{ url_for('static', filename=badge_image) }}" width="120">
+  {% if all_completed %}
+    <h2>🎉 All resistance missions complete. XP awarded!</h2>
   {% endif %}
 
-
- <form method="POST" style="margin-top: 2rem;">
-  <label for="mission" style="font-size: 1.8em; display: block; margin-bottom: 0.5em;">
-    Select Your Mission:
-  </label>
-
-  <select name="mission" id="mission"
-    style="width: 100%; font-size: 2em; padding: 18px; border-radius: 10px; margin-bottom: 1.5em;">
-    {% for category, missions in grouped_missions.items() %}
-      <optgroup label="{{ category }}">
-        {% for name, info in missions %}
-          <option value="{{ name }}">
-            {{ name }} (+{{ info.xp }} XP){% if info.repeatable %} 🔁{% endif %}
-          </option>
-        {% endfor %}
-      </optgroup>
-    {% endfor %}
-  </select>
-
-  <input type="submit" value="Complete Mission"
-    style="width: 100%; font-size: 2em; padding: 20px; border-radius: 10px; background-color: #00ff88; color: #000; font-weight: bold; cursor: pointer;">
-</form>
-
-
-  
-
-
-
-  <h2>Mission History</h2>
-<div style="max-height: 200px; overflow-y: scroll; padding: 10px; background: #1e1e1e; border-radius: 8px; border: 1px solid #444;">
-  <ul style="list-style: none; padding-left: 0; margin: 0;">
-    {% for entry in log %}
-      <li style="padding: 4px 0;">{{ entry.timestamp }} — {{ entry.mission }} (+{{ entry.xp }} XP)</li>
-    {% endfor %}
-  </ul>
-</div>
+  <h2>🧭 Other Missions</h2>
+  <form method="POST" action="/">
+    <label for="mission">Complete a habit mission:</label>
+    <select name="mission" id="mission">
+      {% for category, missions in grouped_missions.items() %}
+        <optgroup label="{{ category }}">
+          {% for name, info in missions %}
+            <option value="{{ name }}">
+              {{ name }} (+{{ info.xp }} XP){% if info.repeatable %} 🔁{% endif %}
+            </option>
+          {% endfor %}
+        </optgroup>
+      {% endfor %}
+    </select>
+    <input type="submit" value="Submit">
+  </form>
 </body>
 </html>
