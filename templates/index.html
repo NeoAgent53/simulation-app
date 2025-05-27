@@ -23,18 +23,22 @@
 
 
   <form method="POST" style="margin-top: 2rem;">
-    <label for="mission">Complete a mission:</label>
-    <select name="mission" id="mission">
-  {% for category, missions in grouped_missions.items() %}
-    <optgroup label="{{ category }}">
-      {% for name, info in missions %}
-        <option value="{{ name }}">
-          {{ name }} (+{{ info.xp }} XP){% if info.repeatable %} 🔁{% endif %}
-        </option>
-      {% endfor %}
-    </optgroup>
-  {% endfor %}
-</select>
+  <label for="mission" style="font-size: 1.2em;">Complete a mission:</label><br><br>
+
+  <select name="mission" id="mission" style="width: 100%; font-size: 1.2em; padding: 10px; border-radius: 6px;">
+    {% for category, missions in grouped_missions.items() %}
+      <optgroup label="{{ category }}">
+        {% for name, info in missions %}
+          <option value="{{ name }}">
+            {{ name }} (+{{ info.xp }} XP){% if info.repeatable %} 🔁{% endif %}
+          </option>
+        {% endfor %}
+      </optgroup>
+    {% endfor %}
+  </select><br><br>
+
+  <input type="submit" value="Complete Mission" style="width: 100%; font-size: 1.3em; padding: 12px; border-radius: 6px;">
+</form>
 
     <input type="submit" value="Submit">
   </form>
