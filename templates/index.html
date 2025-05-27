@@ -59,7 +59,14 @@
   </button>
 </form>
 
-<p><strong>Level:</strong> {{ level }}</p>
+
+
+<div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+  <span><strong>Level {{ level }}</strong></span>
+  <span><strong>XP: {{ xp }}</strong></span>
+</div>
+
+
 
 <div style="background-color: #333; border-radius: 12px; overflow: hidden; height: 30px; margin-bottom: 1em;">
   <div style="
@@ -75,7 +82,22 @@
 </div>
 
 
-  <p><strong>XP:</strong> {{ xp }}</p>
+<form method="POST" action="/" style="display: flex; gap: 10px; margin-bottom: 1em;">
+  <select name="mission" id="mission" style="flex: 1;">
+    {% for category, missions in grouped_missions.items() %}
+      <optgroup label="{{ category }}">
+        {% for name, info in missions %}
+          <option value="{{ name }}">
+            {{ name }} (+{{ info.xp }} XP){% if info.repeatable %} 🔁{% endif %}
+          </option>
+        {% endfor %}
+      </optgroup>
+    {% endfor %}
+  </select>
+  <input type="submit" value="Submit" style="flex: 1;">
+</form>
+
+
 
   {% for m in missions %}
     <div class="mission {% if m.completed %}completed{% endif %}">
@@ -95,21 +117,6 @@
     <h2>🎉 All resistance missions complete. XP awarded!</h2>
   {% endif %}
 
-  <h2>🧭 Other Missions</h2>
-  <form method="POST" action="/">
-    <label for="mission">Complete a habit mission:</label>
-    <select name="mission" id="mission">
-      {% for category, missions in grouped_missions.items() %}
-        <optgroup label="{{ category }}">
-          {% for name, info in missions %}
-            <option value="{{ name }}">
-              {{ name }} (+{{ info.xp }} XP){% if info.repeatable %} 🔁{% endif %}
-            </option>
-          {% endfor %}
-        </optgroup>
-      {% endfor %}
-    </select>
-    <input type="submit" value="Submit">
-  </form>
+
 </body>
 </html>
