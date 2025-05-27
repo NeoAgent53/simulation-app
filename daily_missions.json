@@ -1,0 +1,17 @@
+{
+  "date": "2025-05-27",
+  "missions": [
+    {
+      "text": "Let a task remain unfinished for 24 hours.",
+      "completed": false
+    },
+    {
+      "text": "Create something without comparing it.",
+      "completed": false
+    },
+    {
+      "text": "Make a fast decision without overthinking.",
+      "completed": false
+    }
+  ]
+}
