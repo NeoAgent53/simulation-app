@@ -43,3 +43,26 @@ input[type="submit"] {
 input[type="submit"]:hover {
   background-color: #00cc66;
 }
+
+.level-xp-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.level-xp-bar .level {
+  color: #4caf50;
+}
+
+.level-xp-bar .xp {
+  color: #2196f3;
+}
+
+.mission.completed {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
