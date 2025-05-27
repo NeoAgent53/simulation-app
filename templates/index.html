@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Neo Agent 53 || Simulation XP Tracker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>Neo Agent 53 || Simulation XP Tracker</h1>
+
+  <p><strong>Total XP:</strong> {{ xp }}</p>
+  <p><strong>Level:</strong> {{ level }}</p>
+  <div style="background:#333; width:80%; margin:auto; border-radius:8px; height: 30px;">
+  <div style="width: {{ xp % 100 }}%; background:#00ff88; height: 100%; border-radius:8px; display: flex; align-items: center; justify-content: center;">
+    <strong style="font-size: 14px; color: black">{{ xp % 100 }}/100 XP</strong>
+  </div>
+  </div>
+
+  {% if level > 1 %}
+    <h3>🎖️ Badge Unlocked: Level {{ level }}</h3>
+    <img src="{{ url_for('static', filename=badge_image) }}" width="120">
+  {% endif %}
+
+
+  <form method="POST" style="margin-top: 2rem;">
+    <label for="mission">Complete a mission:</label>
+    <select name="mission" id="mission">
+  {% for category, missions in grouped_missions.items() %}
+    <optgroup label="{{ category }}">
+      {% for name, info in missions %}
+        <option value="{{ name }}">
+          {{ name }} (+{{ info.xp }} XP){% if info.repeatable %} 🔁{% endif %}
+        </option>
+      {% endfor %}
+    </optgroup>
+  {% endfor %}
+</select>
+
+    <input type="submit" value="Submit">
+  </form>
+
+
+
+  <h2>Mission History</h2>
+  <ul>
+    {% for entry in log %}
+      <li>{{ entry.timestamp }} — {{ entry.mission }} (+{{ entry.xp }} XP)</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

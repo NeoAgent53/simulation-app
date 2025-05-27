@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: simulation-app
+    env: python
+    buildCommand: ""
+    startCommand: gunicorn app:app
+    plan: free
+
+
+
+
+
+git init
+git remote add origin https://github.com/NeoAgent53/simulation-app.git
+git add .
+git commit -m "Initial commit"
+git push -u origin master
