@@ -117,6 +117,17 @@ def index():
         grouped_missions=grouped_missions
     )
 
+@app.route("/resist_lag", methods=["POST"])
+def resist_lag():
+    with open("data.json", "r") as file:
+        data = json.load(file)
+
+    data["xp"] += 5
+
+    with open("data.json", "w") as file:
+        json.dump(data, file)
+
+    return redirect("/")
 
 @app.route("/complete/<int:mission_id>", methods=["POST"])
 def complete(mission_id):
