@@ -22,10 +22,13 @@
   {% endif %}
 
 
-  <form method="POST" style="margin-top: 2rem;">
-  <label for="mission" style="font-size: 1.2em;">Complete a mission:</label><br><br>
+ <form method="POST" style="margin-top: 2rem;">
+  <label for="mission" style="font-size: 1.8em; display: block; margin-bottom: 0.5em;">
+    Select Your Mission:
+  </label>
 
-  <select name="mission" id="mission" style="width: 100%; font-size: 1.2em; padding: 10px; border-radius: 6px;">
+  <select name="mission" id="mission"
+    style="width: 100%; font-size: 2em; padding: 18px; border-radius: 10px; margin-bottom: 1.5em;">
     {% for category, missions in grouped_missions.items() %}
       <optgroup label="{{ category }}">
         {% for name, info in missions %}
@@ -35,10 +38,12 @@
         {% endfor %}
       </optgroup>
     {% endfor %}
-  </select><br><br>
+  </select>
 
-  <input type="submit" value="Complete Mission" style="width: 100%; font-size: 1.3em; padding: 12px; border-radius: 6px;">
+  <input type="submit" value="Complete Mission"
+    style="width: 100%; font-size: 2em; padding: 20px; border-radius: 10px; background-color: #00ff88; color: #000; font-weight: bold; cursor: pointer;">
 </form>
+
 
     <input type="submit" value="Submit">
   </form>
