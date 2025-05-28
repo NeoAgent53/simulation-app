@@ -43,8 +43,15 @@
   </style>
 </head>
 <body>
+
+
+
+
   <h1>🧠 Daily Resistance Missions</h1>
-  <form method="POST" action="/resist_lag" style="margin-bottom: 1em;">
+
+
+<form method="POST" action="/lag" style="margin-top: 10px;">
+
   <button type="submit" style="
     background-color: #ff0055;
     color: white;
@@ -55,9 +62,11 @@
     cursor: pointer;
     box-shadow: 0 0 10px #ff0055;
   ">
-    ⚡ Resist The Slag (+5 XP)
-  </button>
+        ⚡ Resist The Slag (+25 XP)
+    </button>
 </form>
+
+
 
 
 
@@ -97,7 +106,22 @@
   <input type="submit" value="Submit" style="flex: 1;">
 </form>
 
-
+<h2>🧪 Daily Missions</h2>
+<ul>
+  {% for mission in daily_missions %}
+    <li>
+      {% if mission.completed %}
+        ✅ {{ mission.text }}
+      {% else %}
+        {{ mission.text }}
+        <form method="POST" action="/complete_daily" style="display:inline;">
+          <input type="hidden" name="mission_text" value="{{ mission.text }}">
+          <button type="submit">Complete</button>
+        </form>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
 
   {% for m in missions %}
     <div class="mission {% if m.completed %}completed{% endif %}">

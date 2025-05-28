@@ -1,0 +1,140 @@
+[
+  {
+    "name": "Hydrate : Water",
+    "xp": 10,
+    "category": "Body",
+    "repeatable": true
+  },
+  {
+    "name": "Random Physical Test (David Goggins)",
+    "xp": 10,
+    "category": "Body",
+    "repeatable": true
+  },
+  {
+    "name": "1 hour Warrior training (Andrew Tate)",
+    "xp": 10,
+    "category": "Body",
+    "repeatable": true
+  },
+  {
+    "name": "Crypto Detox (1 Day)",
+    "xp": 10,
+    "category": "Body",
+    "repeatable": true
+  },
+  {
+    "name": "Pc break (2 hours)",
+    "xp": 10,
+    "category": "Body",
+    "repeatable": true
+  },
+  {
+    "name": "1 minute breath watch",
+    "xp": 10,
+    "category": "Body",
+    "repeatable": true
+  },
+  {
+    "name": "Stillness Challenge (5 minutes)",
+    "xp": 10,
+    "category": "Body",
+    "repeatable": true
+  },
+  {
+    "name": "Stretch for 5 minutes",
+    "xp": 10,
+    "category": "Body",
+    "repeatable": true
+  },
+  {
+    "name": "Meditate for 10 minutes",
+    "xp": 20,
+    "category": "Mind",
+    "repeatable": true
+  },
+  {
+    "name": "Sit in silence with discomfort for 5 minutes",
+    "xp": 10,
+    "category": "Mind",
+    "repeatable": true
+  },
+  {
+    "name": "Post an imperfect creation publicly",
+    "xp": 10,
+    "category": "Mind",
+    "repeatable": true
+  },
+  {
+    "name": "Let a task remain unfinished for 24 hours",
+    "xp": 20,
+    "category": "Mind",
+    "repeatable": true
+  },
+  {
+    "name": "Pause + Breath",
+    "xp": 10,
+    "category": "Mind",
+    "repeatable": true
+  },
+  {
+    "name": "Be a Yes Man for a whole day (No exceptions)",
+    "xp": 20,
+    "category": "Mind",
+    "repeatable": false
+  },
+  {
+    "name": "Compliment 5 people today",
+    "xp": 10,
+    "category": "Mind",
+    "repeatable": false
+  },
+  {
+    "name": "Give somebody (Mum) your full attention today",
+    "xp": 10,
+    "category": "Mind",
+    "repeatable": false
+  },
+  {
+    "name": "'I Am Alive'",
+    "xp": 10,
+    "category": "Mind",
+    "repeatable": true
+  },
+  {
+    "name": "Practice a skill for 15 minutes",
+    "xp": 30,
+    "category": "Mind",
+    "repeatable": true
+  },
+  {
+    "name": "Put 3 things away. Cleanse",
+    "xp": 5,
+    "category": "Mind",
+    "repeatable": false
+  },
+  {
+    "name": "Zero Crypto (30 days)",
+    "xp": 20,
+    "category": "Detox",
+    "repeatable": false
+  },
+  {
+    "name": "Zero Socials (30 days)",
+    "xp": 20,
+    "category": "Detox",
+    "repeatable": false
+  },
+  {
+    "name": "1 hour pc break",
+    "xp": 10,
+    "category": "Detox",
+    "repeatable": true
+  },
+  {
+    "name": "Junk Food",
+    "xp": 20,
+    "category": "Detox",
+    "repeatable": false
+  }
+]
