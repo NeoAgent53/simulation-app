@@ -1,148 +1,157 @@
-# app.py (Updated Version with Daily Resistance Missions)
-
 from flask import Flask, render_template, request, redirect, url_for
-import json, os
-from datetime import datetime
+from supabase import create_client, Client
 from collections import defaultdict
+from datetime import datetime, date
+
+
+import json
 import random
+import os
+from datetime import datetime
+
+# Supabase setup
+SUPABASE_URL = "https://cwfpdxefylagzrpnxett.supabase.co"
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN3ZnBkeGVmeWxhZ3pycG54ZXR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg0MDQxMjEsImV4cCI6MjA2Mzk4MDEyMX0.FcuKc1WOE0JF3_YkoEDyNH1_uHF52d9Q99uKLnhL2j4"
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
 
 app = Flask(__name__)
 
-DATA_FILE = 'data.json'
-LOG_FILE = 'log.json'
-DAILY_FILE = 'daily_missions.json'
+def get_user():
+    user_id = "00000000-0000-0000-0000-000000000001"  # UUID format
+    response = supabase.table("users").select("*").eq("id", user_id).execute()
+    if response.data:
+        return response.data[0]
+    else:
+        supabase.table("users").insert({
+            "id": user_id,
+            "xp": 0,
+            "level": 1
+        }).execute()
+        return {"id": user_id, "xp": 0, "level": 1}
 
-xp_values = {
-    "Drink Water": {"xp": 10, "repeatable": True, "type": "Body"},
-    "Meditate 10 Min": {"xp": 20, "repeatable": True, "type": "Mind"},
-    "Strength Training": {"xp": 30, "repeatable": False, "type": "Body"},
-    "Observe Without Reacting": {"xp": 25, "repeatable": False, "type": "Mind"},
-    "Eat Nutritious Meal": {"xp": 15, "repeatable": False, "type": "Body"},
-    "Skill Practice": {"xp": 20, "repeatable": True, "type": "Mind"},
-    "Social Media Detox - 1 Day": {"xp": 20, "repeatable": False, "type": "Routine"},
-    "Crypto Detox - 1 Day": {"xp": 20, "repeatable": False, "type": "Routine"},
-    "Go for a Walk": {"xp": 10, "repeatable": True, "type": "Body"},
-    "Journal Entry": {"xp": 15, "repeatable": True, "type": "Mind"}
-}
+def update_user_xp(new_xp):
+    user_id = "00000000-0000-0000-0000-000000000001"
+    level = new_xp // 1000 + 1
+    supabase.table("users").update({
+        "xp": new_xp,
+        "level": level
+    }).eq("id", user_id).execute()
 
-
-# Master mission list
-resistance_missions = [
-    "Post an imperfect creation publicly.",
-    "Sit in silence with discomfort for 5 minutes.",
-    "Tell a personal truth to someone.",
-    "Write down and reframe 3 negative thoughts.",
-    "Create something without comparing it.",
-    "Ask someone for something and accept the response.",
-    "Let a task remain unfinished for 24 hours.",
-    "Make a fast decision without overthinking.",
-    "Share a raw journal thought online.",
-    "Do something outside your usual identity."
-]
-
-TRUTH_QUOTE = "The Divine is showing me this resistance to clear."
-XP_REWARD = 50
-
-# Utilities
-def calculate_level(xp):
-    return xp // 1000 + 1
-
-def group_missions_by_type(missions):
-    grouped = defaultdict(list)
-    for name, info in missions.items():
-        grouped[info["type"]].append((name, info))
-    return grouped
-
-
-def load_json(filename, default):
-    if not os.path.exists(filename):
-        return default
-    with open(filename, 'r') as f:
+def load_missions():
+    with open("missions.json", "r") as f:
         return json.load(f)
 
-def save_json(filename, data):
-    with open(filename, 'w') as f:
+def group_missions(missions):
+    grouped = defaultdict(list)
+    for mission in missions:
+        category = mission.get("category", "Uncategorized")
+        grouped[category].append((mission["name"], mission))
+    return grouped
+
+def load_daily_missions():
+    today_str = str(date.today())
+    try:
+        with open("daily_missions.json", "r") as f:
+            daily_data = json.load(f)
+            if daily_data.get("date") == today_str:
+                return daily_data
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
+
+    # Load from full mission list
+    missions = load_missions()
+    selected = random.sample(missions, 3)
+    new_data = {
+        "date": today_str,
+        "missions": [{"text": m["name"], "completed": False} for m in selected]
+    }
+
+    with open("daily_missions.json", "w") as f:
+        json.dump(new_data, f, indent=2)
+
+    return new_data
+
+
+def save_daily_missions(data):
+    with open("daily_missions.json", "w") as f:
         json.dump(data, f, indent=2)
 
-# Load/save data
-
-def load_data():
-    return load_json(DATA_FILE, {"xp": 0})
-
-def save_data(data):
-    save_json(DATA_FILE, data)
-
-def load_daily():
-    return load_json(DAILY_FILE, {"date": "", "missions": []})
-
-def save_daily(data):
-    save_json(DAILY_FILE, data)
-
-# Routes
 @app.route("/", methods=["GET", "POST"])
-
 def index():
-    today = datetime.now().strftime("%Y-%m-%d")
-    data = load_data()
-    level = calculate_level(data["xp"])
-    daily = load_daily()
+    user = get_user()
+    missions = load_missions()
+    daily_missions = load_daily_missions()
+    grouped_missions = group_missions(missions)
+    daily_data = load_daily_missions()
 
-    if request.method == "POST" and "mission" in request.form:
-        mission = request.form["mission"]
-        mission_info = xp_values.get(mission, {})
-        earned_xp = mission_info.get("xp", 0)
-        data["xp"] += earned_xp
-        save_data(data)
+    if request.method == "POST":
+        mission_name = request.form.get("mission")
+        for mission in missions:
+            if mission["name"] == mission_name:
+                user["xp"] += mission["xp"]
+                update_user_xp(user["xp"])
+                break
         return redirect(url_for("index"))
 
-    if daily.get("date") != today:
-        # New day: pick 3 random missions
-        missions = random.sample(resistance_missions, 3)
-        daily = {
-            "date": today,
-            "missions": [{"text": m, "completed": False} for m in missions]
-        }
-        save_daily(daily)
+    return render_template("index.html",
+                           level=user["level"],
+                           xp=user["xp"],
+                           grouped_missions=grouped_missions,
+                           daily_missions=daily_data["missions"])
 
-    all_completed = all(m["completed"] for m in daily["missions"])
-    grouped_missions = group_missions_by_type(xp_values)
+@app.route("/lag", methods=["POST"])
+def handle_lag():
+    user = get_user()
+    user["xp"] += 25
+    update_user_xp(user["xp"])
+    return redirect(url_for("index"))
 
-    return render_template(
-        "index.html",
-        missions=daily["missions"],
-        truth=TRUTH_QUOTE,
-        xp=data["xp"],
-        level=calculate_level(data["xp"]),
-        all_completed=all(m["completed"] for m in daily["missions"]),
-        grouped_missions=grouped_missions
-    )
 
-@app.route("/resist_lag", methods=["POST"])
-def resist_lag():
-    with open("data.json", "r") as file:
-        data = json.load(file)
+@app.route("/complete_daily/<int:index>", methods=["POST"])
+def complete_daily(index):
+    user = get_user()
+    daily_data = load_daily_missions()
 
-    data["xp"] += 5
-
-    with open("data.json", "w") as file:
-        json.dump(data, file)
-
-    return redirect("/")
-
-@app.route("/complete/<int:mission_id>", methods=["POST"])
-def complete(mission_id):
-    daily = load_daily()
-    data = load_data()
-
-    if not daily["missions"][mission_id]["completed"]:
-        daily["missions"][mission_id]["completed"] = True
-        save_daily(daily)
-
-    if all(m["completed"] for m in daily["missions"]):
-        data["xp"] += XP_REWARD
-        save_data(data)
+    if 0 <= index < len(daily_data["missions"]):
+        if not daily_data["missions"][index]["completed"]:
+            daily_data["missions"][index]["completed"] = True
+            user["xp"] += 10  # XP reward per daily mission
+            update_user_xp(user["xp"])
+            save_daily_missions(daily_data)
 
     return redirect(url_for("index"))
+
+@app.route("/complete_daily", methods=["POST"])
+def complete_daily_mission():
+    mission_text = request.form.get("mission_text")
+    data = load_daily_missions()
+
+    # Mark the mission as completed
+    for mission in data["missions"]:
+        if mission["text"] == mission_text:
+            mission["completed"] = True
+            break
+
+    # Save mission state
+    with open("daily_missions.json", "w") as f:
+        json.dump(data, f, indent=2)
+
+    # Check if all missions are completed
+    all_completed = all(m["completed"] for m in data["missions"])
+
+    # Track if XP has already been awarded for the day
+    if all_completed and not data.get("xp_awarded", False):
+        user = get_user()
+        xp_gain = 30  # or whatever XP value you want for full completion
+        user["xp"] += xp_gain
+        update_user_xp(user["xp"])
+        data["xp_awarded"] = True  # Prevent awarding XP multiple times
+        with open("daily_missions.json", "w") as f:
+            json.dump(data, f, indent=2)
+
+    return redirect(url_for("index"))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
