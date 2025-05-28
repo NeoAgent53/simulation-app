@@ -1,140 +1,146 @@
 [
   {
-    "name": "Hydrate : Water",
+    "name": "\uD83D\uDC77\uD83C\uDFFB\uD83D\uDE9AHydrate : Water",
     "xp": 10,
-    "category": "Body",
+    "category": "Physical : Body Fitness",
     "repeatable": true
   },
   {
-    "name": "Random Physical Test (David Goggins)",
+    "name": "\uD83C\uDFE030 Min Daily Warrior Workout",
     "xp": 10,
-    "category": "Body",
+    "category": "Physical : Body Fitness",
     "repeatable": true
   },
   {
-    "name": "1 hour Warrior training (Andrew Tate)",
+    "name": "\uD83C\uDFE010 Min Meditation After Workout",
     "xp": 10,
-    "category": "Body",
+    "category": "Physical : Body Fitness",
     "repeatable": true
   },
   {
-    "name": "Crypto Detox (1 Day)",
+    "name": "\uD83C\uDFE0Weekly Warrior Progress Check-In",
     "xp": 10,
-    "category": "Body",
+    "category": "Physical : Body Fitness",
     "repeatable": true
   },
   {
-    "name": "Pc break (2 hours)",
+    "name": "\uD83C\uDFE0Boss Fight : Awareness of 'The Slag'",
     "xp": 10,
-    "category": "Body",
+    "category": "Physical : Body Fitness",
     "repeatable": true
   },
   {
-    "name": "1 minute breath watch",
+    "name": "\uD83C\uDFE0Daily 10 Min Meditation",
     "xp": 10,
-    "category": "Body",
+    "category": "Spiritual (Awakening & Alignment)",
     "repeatable": true
   },
   {
-    "name": "Stillness Challenge (5 minutes)",
+    "name": "\uD83C\uDFE030 Min Journal Actions/Beliefs",
     "xp": 10,
-    "category": "Body",
+    "category": "Spiritual (Awakening & Alignment)",
     "repeatable": true
   },
   {
-    "name": "Stretch for 5 minutes",
+    "name": "\uD83C\uDFE0Spiritual Detox From Crypto/Socials",
     "xp": 10,
-    "category": "Body",
+    "category": "Spiritual (Awakening & Alignment)",
     "repeatable": true
   },
   {
-    "name": "Meditate for 10 minutes",
-    "xp": 20,
-    "category": "Mind",
-    "repeatable": true
-  },
-  {
-    "name": "Sit in silence with discomfort for 5 minutes",
+    "name": "\uD83D\uDC77\uD83C\uDFFB\uD83C\uDFE0Stillness Challenge (5 Mins Silence)",
     "xp": 10,
-    "category": "Mind",
+    "category": "Spiritual (Awakening & Alignment)",
     "repeatable": true
   },
   {
-    "name": "Post an imperfect creation publicly",
+    "name": "\uD83D\uDC77\uD83C\uDFFB\uD83D\uDE9A\uD83C\uDFE0Observe 'The Slag' For 10 Mins",
     "xp": 10,
-    "category": "Mind",
+    "category": "Mental (Ego Awareness & Reprogramming)",
     "repeatable": true
   },
   {
-    "name": "Let a task remain unfinished for 24 hours",
-    "xp": 20,
-    "category": "Mind",
-    "repeatable": true
-  },
-  {
-    "name": "Pause + Breath",
+    "name": "\uD83D\uDC77\uD83C\uDFFB\uD83D\uDE9A\uD83C\uDFE0Robert Scheinfeld (Act,Observe,Reframe)",
     "xp": 10,
-    "category": "Mind",
+    "category": "Mental (Ego Awareness & Reprogramming)",
     "repeatable": true
   },
   {
-    "name": "Be a Yes Man for a whole day (No exceptions)",
-    "xp": 20,
-    "category": "Mind",
-    "repeatable": false
-  },
-  {
-    "name": "Compliment 5 people today",
+    "name": "\uD83D\uDC77\uD83C\uDFFB\uD83D\uDE9A\uD83C\uDFE0Daily Affirmations - 'I am...'",
     "xp": 10,
-    "category": "Mind",
-    "repeatable": false
-  },
-  {
-    "name": "Give somebody (Mum) your full attention today",
-    "xp": 10,
-    "category": "Mind",
-    "repeatable": false
-  },
-  {
-    "name": "'I Am Alive'",
-    "xp": 10,
-    "category": "Mind",
+    "category": "Mental (Ego Awareness & Reprogramming)",
     "repeatable": true
   },
   {
-    "name": "Practice a skill for 15 minutes",
-    "xp": 30,
-    "category": "Mind",
-    "repeatable": true
-  },
-  {
-    "name": "Put 3 things away. Cleanse",
-    "xp": 5,
-    "category": "Mind",
-    "repeatable": false
-  },
-  {
-    "name": "Zero Crypto (30 days)",
-    "xp": 20,
-    "category": "Detox",
-    "repeatable": false
-  },
-  {
-    "name": "Zero Socials (30 days)",
-    "xp": 20,
-    "category": "Detox",
-    "repeatable": false
-  },
-  {
-    "name": "1 hour pc break",
+    "name": "\uD83C\uDFE0Visualization Practice",
     "xp": 10,
-    "category": "Detox",
+    "category": "Mental (Ego Awareness & Reprogramming)",
     "repeatable": true
   },
   {
-    "name": "Junk Food",
-    "xp": 20,
-    "category": "Detox",
-    "repeatable": false
+    "name": "\uD83D\uDE9A\uD83C\uDFE0Reflect and Reframe (XP Log)",
+    "xp": 10,
+    "category": "Mental (Ego Awareness & Reprogramming)",
+    "repeatable": true
+  },
+  {
+    "name": "\uD83D\uDC77\uD83C\uDFFBPractice Active Listening",
+    "xp": 10,
+    "category": "Social (Relationships & Influence)",
+    "repeatable": true
+  },
+  {
+    "name": "\uD83D\uDC77\uD83C\uDFFBSocial Check-In (Connect)",
+    "xp": 10,
+    "category": "Social (Relationships & Influence)",
+    "repeatable": true
+  },
+  {
+    "name": "\uD83D\uDC77\uD83C\uDFFB\uD83C\uDFE0Give a Compliment or Acknowledgment",
+    "xp": 10,
+    "category": "Social (Relationships & Influence)",
+    "repeatable": true
+  },
+  {
+    "name": "\uD83D\uDC77\uD83C\uDFFB\uD83C\uDFE0Strengthen Existing Relationships",
+    "xp": 10,
+    "category": "Social (Relationships & Influence)",
+    "repeatable": true
+  },
+  {
+    "name": "\uD83D\uDC77\uD83C\uDFFB\uD83C\uDFE0Practice Conflict Resolution",
+    "xp": 10,
+    "category": "Social (Relationships & Influence)",
+    "repeatable": true
+  },
+  {
+    "name": "\uD83D\uDE9A\uD83C\uDFE0Start a New Creative Project",
+    "xp": 10,
+    "category": "Creative (Personal Projects & New Skills)",
+    "repeatable": true
+  },
+  {
+    "name": "\uD83C\uDFE0Dedicate 30 Minutes to Skill Practice",
+    "xp": 10,
+    "category": "Creative (Personal Projects & New Skills)",
+    "repeatable": true
+  },
+  {
+    "name": "\uD83D\uDC77\uD83C\uDFFB\uD83C\uDFE0Share Your Creative Work with Someone",
+    "xp": 10,
+    "category": "Creative (Personal Projects & New Skills)",
+    "repeatable": true
+  },
+  {
+    "name": "\uD83C\uDFE0Creative Brainstorming Session",
+    "xp": 10,
+    "category": "Creative (Personal Projects & New Skills)",
+    "repeatable": true
+  },
+  {
+    "name": "\uD83C\uDFE0Experiment with a New Medium or Technique",
+    "xp": 10,
+    "category": "Creative (Personal Projects & New Skills)",
+    "repeatable": true
   }
 ]
